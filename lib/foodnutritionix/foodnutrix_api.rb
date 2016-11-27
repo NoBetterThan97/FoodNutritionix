@@ -14,13 +14,14 @@ module FoodNutritionix
     end
 
     def self.config
-      @config ||= { x_app_id: ENV['x_app_id'], x_app_key: ENV['x_app_key']}
+      return @config if @config
+      @config ||= { x_app_id: ENV['X_APP_ID'], x_app_key: ENV['X_APP_KEY']}
     end
 
-    def self.search_tweets(*foods)
+    def self.search_foods(*foods)
       HTTParty.post(SEARCH_FOOD_ENDPOINT,
-                   headers: authorization_header,
-                   body: { 'query': foods.join(' ') }).parsed_response['foods'][0]
+                   headers:authorization_header,
+                   body: { 'query': foods.join(' ') }).parsed_response['foods']
     end
 
     def self.authorization_header

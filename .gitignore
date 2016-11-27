@@ -1,2 +1,14 @@
-config/credentials.yml
-config/test.rb
+# secret files
+.env
+
+# coverage report
+coverage/
+
+#config
+config/
+
+# lock file
+Gemfile.lock
+
+# product
+*.gem
