@@ -21,7 +21,7 @@ module FoodNutritionix
     def self.search_foods(*foods)
       HTTParty.post(SEARCH_FOOD_ENDPOINT,
                    headers:authorization_header,
-                   body: { 'query': foods.join(' ') }).parsed_response['foods']
+                   body: { 'query': foods.join(' ') }).parsed_response['foods'][0]
     end
 
     def self.authorization_header

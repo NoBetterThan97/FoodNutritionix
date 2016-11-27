@@ -4,7 +4,7 @@ module FoodNutritionix
     attr_reader :food_name, :consumed_at, :serving_qty, :serving_unit, :serving_weight_grams, :nf_calories, :nf_total_fat, :nf_saturated_fat, :nf_cholesterol, :nf_sodium, :nf_total_carbohydrate, :nf_dietary_fiber, :nf_sugars, :nf_protein, :nf_potassium, :photo
 
     def initialize(data)
-      @id = data['id']
+      @food_name = data['food_name']
       @consumed_at = DateTime.parse(data['consumed_at'])
       @serving_qty = data['serving_qty']
       @serving_unit = data['serving_unit']
@@ -24,7 +24,8 @@ module FoodNutritionix
     end
 
     def self.search(*tags)
-      TwitterClient.search_tweets(tags).map { |data| new(data) }
+      data = FoodNutrixClient.search_foods(tags)
+      new(data)
     end
   end
 end

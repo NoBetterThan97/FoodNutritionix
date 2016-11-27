@@ -19,7 +19,7 @@ FOODS = ['pizza']
 VCR.configure do |config|
   config.cassette_library_dir = CASSETTES_FOLDER
   config.hook_into :webmock
-  
+  config.allow_http_connections_when_no_cassette = true
   config.filter_sensitive_data('<X_APP_ID>') { ENV['X_APP_ID'] }
   config.filter_sensitive_data('<X_APP_KEY>') { ENV['X_APP_KEY'] }
 end
