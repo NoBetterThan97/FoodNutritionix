@@ -4,7 +4,6 @@ require 'httparty'
 
 module FoodNutritionix
   class FoodNutrixClient
-
     API_BASE = 'https://trackapi.nutritionix.com/'
     API_VERSION = 'v2/'
     SEARCH_FOOD_ENDPOINT = URI.join(API_BASE, API_VERSION, 'natural/nutrients')
@@ -15,17 +14,18 @@ module FoodNutritionix
 
     def self.config
       return @config if @config
-      @config ||= { x_app_id: ENV['X_APP_ID'], x_app_key: ENV['X_APP_KEY']}
+      @config ||= { x_app_id: ENV['X_APP_ID'], x_app_key: ENV['X_APP_KEY'] }
     end
 
     def self.search_foods(*foods)
       HTTParty.post(SEARCH_FOOD_ENDPOINT,
-                   headers:authorization_header,
-                   body: { 'query': foods.join(' ') }).parsed_response['foods'][0]
+                   headers: authorization_header,
+                   body:  { 'query': foods.join(' ') })
+                   .parsed_response['foods'][0]
     end
 
     def self.authorization_header
-      @authorization_header ||= { 'x-app-id': "#{config[:x_app_id]}",'x-app-key': "#{config[:x_app_key]}"  }
+      @authorization_header ||= { 'x-app-id': "#{config[:x_app_id]}", 'x-app-key': "#{config[:x_app_key]}" }
     end
   end
 end

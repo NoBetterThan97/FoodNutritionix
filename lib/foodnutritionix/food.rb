@@ -19,7 +19,6 @@ module FoodNutritionix
       @nf_sugars = data['nf_sugars']
       @nf_protein = data['nf_protein']
       @nf_potassium = data['nf_potassium']
-      @consumed_at = data['consumed_at']
       @photo = data['photo']
     end
 
