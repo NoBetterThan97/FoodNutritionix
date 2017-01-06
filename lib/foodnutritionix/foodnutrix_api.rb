@@ -18,14 +18,18 @@ module FoodNutritionix
     end
 
     def self.search_foods(*foods)
-      HTTParty.post(SEARCH_FOOD_ENDPOINT,
-                   headers: authorization_header,
-                   body:  { 'query': foods.join(' ') })
-                   .parsed_response['foods'][0]
+      result = HTTParty.post(SEARCH_FOOD_ENDPOINT,
+                             headers: authorization_header,
+                             body: { query: foods.join(' ') })
+                       .parsed_response
+      result['foods']
     end
 
     def self.authorization_header
-      @authorization_header ||= { 'x-app-id': "#{config[:x_app_id]}", 'x-app-key': "#{config[:x_app_key]}" }
+      @authorization_header ||= {
+        'x-app-id'  => config[:x_app_id].to_s,
+        'x-app-key' => config[:x_app_key].to_s
+      }
     end
   end
 end
