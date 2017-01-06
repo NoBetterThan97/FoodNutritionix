@@ -14,7 +14,7 @@ require_relative '../lib/foodnutritionix.rb'
 Dotenv.load
 
 CASSETTES_FOLDER = 'spec/support/cassettes'
-FOODS = ['pizza']
+FOODS = ['pizza'].freeze
 
 VCR.configure do |config|
   config.cassette_library_dir = CASSETTES_FOLDER

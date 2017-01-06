@@ -13,7 +13,6 @@ module FoodNutritionix
     end
 
     def self.config
-      return @config if @config
       @config ||= { x_app_id: ENV['X_APP_ID'], x_app_key: ENV['X_APP_KEY'] }
     end
 

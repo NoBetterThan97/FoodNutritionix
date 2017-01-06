@@ -12,3 +12,6 @@ Gemfile.lock
 
 # product
 *.gem
+
+# rbenv
+.ruby-version
