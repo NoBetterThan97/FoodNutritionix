@@ -5,8 +5,8 @@ source 'https://rubygems.org'
 
 gem 'dotenv'
 
-gem 'flog'
 gem 'flay'
+gem 'flog'
 
 gem 'httparty'
 
