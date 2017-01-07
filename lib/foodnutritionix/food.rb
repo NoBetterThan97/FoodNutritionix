@@ -1,21 +1,22 @@
 # frozen_string_literal: true
 module FoodNutritionix
   class Food
-    attr_reader :name,
-                :serving_quantity,
-                :serving_unit,
-                :serving_weight,
-                :calories,
-                :total_fat,
-                :saturated_fat,
-                :cholesterol,
-                :sodium,
-                :carbohydrate,
-                :dietary_fiber,
-                :sugars,
-                :protein,
-                :potassium,
-                :photo
+    ATTRIBUTES = [:name,
+                  :serving_quantity,
+                  :serving_unit,
+                  :serving_weight,
+                  :calories,
+                  :fat,
+                  :saturated_fat,
+                  :cholesterol,
+                  :sodium,
+                  :carbohydrate,
+                  :dietary_fiber,
+                  :sugars,
+                  :protein,
+                  :potassium,
+                  :photo].freeze
+    attr_reader(*ATTRIBUTES)
 
     def initialize(data)
       @name = data['food_name']
@@ -23,6 +24,18 @@ module FoodNutritionix
       populate_nutrition_facts(data)
       @photo = data['photo']
     end
+
+    def to_hash
+      ATTRIBUTES.map { |attribute| [attribute, send(attribute)] }.to_h
+    end
+    alias to_h to_hash
+
+    def self.search(*names)
+      FoodNutrixClient.search_foods(names)
+                     &.map { |food| new(food) }
+    end
+
+    private
 
     def populate_serving_information(data)
       @serving_quantity = data['serving_qty']
@@ -41,11 +54,6 @@ module FoodNutritionix
       @sugars        = data.fetch('nf_sugars', 0.0)
       @protein       = data.fetch('nf_protein', 0.0)
       @potassium     = data.fetch('nf_potassium', 0.0)
-    end
-
-    def self.search(*names)
-      FoodNutrixClient.search_foods(names)
-                     &.map { |food| new(food) }
     end
   end
 end
